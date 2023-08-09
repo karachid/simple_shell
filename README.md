@@ -1,1 +1,1 @@
-simple shell repository
+simple shell repository by Rachid & Anas
