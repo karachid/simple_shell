@@ -19,4 +19,7 @@ int strcompare(char *strf, char *strs, int n);
 /* Returns the concatenation of two strings given as inputs */
 char *str_concatenate(char *strf, char *strs);
 
+/* Copies n characters from sources to destination */
+char *stringncopy(char *dest, const char *src, size_t n);
+
 #endif

@@ -107,7 +107,7 @@ char *strconcatenate(char *strf, char *strs)
 		strs = "";
 	lens = strlength(strs);
 
-	newstr = malloc(sizeof(char) * (length1 + length2 + 1));
+	newstr = malloc(sizeof(char) * (lenf + lens + 1));
 	if (!newstr)
 	{
 		perror("Unable to allocate memory");
@@ -126,4 +126,32 @@ char *strconcatenate(char *strf, char *strs)
 
 	newstr[lenf] = '\0';
 	return (newstr);
+}
+
+/**
+ * stringncopy - copies n char from src to dest
+ * @dest : destination string
+ * @src : source string
+ * @n : amount of char to be copied
+ * Return: (char *) pointer to the new string
+ */
+
+char *stringncopy(char *dest, const char *src, size_t n)
+{
+
+	char *dests = dest;
+
+	while (n > 0 && *src != '\0')
+	{
+		*dest++ = *src++;
+		n--;
+	}
+
+	while (n > 0)
+	{
+		*dest++ = '\0';
+		n--;
+	}
+
+	return (dests);
 }
