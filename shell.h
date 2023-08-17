@@ -1,16 +1,22 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+/* Checks whether a given character is a delimiter or not */
+int isDelimiter(char c, char *delim);
+
+/* Split a string into words based on a set of delimiters */
+char **stringtotokens(char *str, char *delim);
+
 /* Returns the length of a given string */
-int str_length(char *string);
+unsigned int strlength(char *str);
 
 /* Returns a duplicated string similar to a given input */
-char *str_duplicate(char *string);
+char *strduplicate(char *str);
 
 /* Allows to compare two strings given as inputs */
-int str_compare(char *string1, char *string2, int number);
+int strcompare(char *strf, char *strs, int n);
 
 /* Returns the concatenation of two strings given as inputs */
-char *str_concat(char *string1, char *string2);
+char *str_concatenate(char *strf, char *strs);
 
 #endif
