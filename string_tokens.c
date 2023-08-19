@@ -67,3 +67,52 @@ char **stringtotokens(char *str, char *delim)
 
 	return (words);
 }
+
+/**
+ * stringtoken - behaves as strtok of string lib
+ * @str : string input to be splitted
+ * @delim : set of delimiters
+ * Return: (char *) a token based on delimiter
+ */
+
+char *stringtoken(char *str, char *delim)
+{
+
+	static char *nexttok;
+	char *begintoken = NULL;
+
+	if (str != NULL)
+	{
+		nexttok = str;
+	}
+	else if (nexttok == NULL)
+	{
+		return (NULL);
+	}
+
+	while (*nexttok != '\0' && isDelimiter(*nexttok, delim))
+	{
+		nexttok++;
+	}
+
+	if (*nexttok == '\0')
+	{
+		nexttok = NULL;
+		return (NULL);
+	}
+
+	begintoken = nexttok;
+
+	while (*nexttok != '\0' && !isDelimiter(*nexttok, delim))
+		nexttok++;
+
+	if (*nexttok != '\0')
+	{
+		*nexttok = '\0';
+		nexttok++;
+	}
+	else
+		nexttok = NULL;
+
+	return (begintoken);
+}
