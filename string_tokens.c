@@ -82,18 +82,12 @@ char *stringtoken(char *str, char *delim)
 	char *begintoken = NULL;
 
 	if (str != NULL)
-	{
 		nexttok = str;
-	}
 	else if (nexttok == NULL)
-	{
 		return (NULL);
-	}
 
 	while (*nexttok != '\0' && isDelimiter(*nexttok, delim))
-	{
 		nexttok++;
-	}
 
 	if (*nexttok == '\0')
 	{
