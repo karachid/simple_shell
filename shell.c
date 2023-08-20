@@ -14,7 +14,7 @@ int main(int ac, char **av)
 	ssize_t n_char;
 	size_t len = 0;
 	int flag;
-	list_t *head = NULL;
+	pathnode_t *head = NULL;
 	(void)ac;
 
 	value = _getenv("PATH");

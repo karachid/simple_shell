@@ -1,6 +1,6 @@
 #include "shell.h"
 
-char *getpathname(char *cmd, list_t *current, int *flag)
+char *getpathname(char *cmd, pathnode_t *current, int *flag)
 {
 	char *path;
 	struct stat st;
@@ -11,14 +11,14 @@ char *getpathname(char *cmd, list_t *current, int *flag)
 
 	while (current)
 	{
-		len = strlen(current->str) + strlen(cmd) + 2;
+		len = strlen(current->pathvalue) + strlen(cmd) + 2;
 		path = malloc(sizeof(char) * len);
 		if (!path)
 		{
 			free(path);
 			return (NULL);
 		}
-		strcpy(path, current->str);
+		strcpy(path, current->pathvalue);
 		strcat(path, "/");
 		strcat(path, cmd);
 		path[len - 1] = '\0';
@@ -27,7 +27,7 @@ char *getpathname(char *cmd, list_t *current, int *flag)
 			*flag = 1;
 			return (path);
 		}
-		current = current->next;
+		current = current->nextpath;
 		free(path);
 		path = NULL;
 	}

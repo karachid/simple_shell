@@ -1,16 +1,16 @@
 #include "shell.h"
 
-void freelist(list_t *head)
+void freelist(pathnode_t *head)
 {
-	list_t *node, *next_node;
+	pathnode_t *node, *next_node;
 
 	if (!head)
 		return;
 	node = head;
 	while (node)
 	{
-		next_node = node->next;
-		free(node->str);
+		next_node = node->nextpath;
+		free(node->pathvalue);
 		free(node);
 		node = next_node;
 	}

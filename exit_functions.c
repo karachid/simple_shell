@@ -1,6 +1,6 @@
 #include "shell.h"
 
-void handleexitcommand(char **tokens, list_t *head)
+void handleexitcommand(char **tokens, pathnode_t *head)
 {
 	int num = 0;
 
