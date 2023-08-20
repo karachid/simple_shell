@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * main - entry point
- * Decription: shell program
- * @ac: number of argument
- * @av: array of argument
- * Return: 0 (succes)
+ * main - Entry point of the shell
+ * Decription: Main functions that serves as an entry point
+ * @ac: Number of arguments
+ * @av: Array of arguments
+ * Return: Always 0 (SUCCESS)
  */
 
 int main(int ac, char **av)

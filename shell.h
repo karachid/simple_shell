@@ -7,6 +7,9 @@ int isDelimiter(char c, char *delim);
 /* Split a string into words based on a set of delimiters */
 char **stringtotokens(char *str, char *delim);
 
+/* Behaves as strtok of C string library */
+char *stringtoken(char *str, char *delim);
+
 /* Returns the length of a given string */
 unsigned int strlength(char *str);
 
