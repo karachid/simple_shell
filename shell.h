@@ -1,6 +1,8 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+extern char **environ;
+
 /* Checks whether a given character is a delimiter or not */
 int isDelimiter(char c, char *delim);
 
