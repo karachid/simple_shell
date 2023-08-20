@@ -47,6 +47,6 @@ int main(int ac, char **av)
 		else
 			break;
 	}
-	free_list(head);
+	freelist(head);
 	return (0);
 }
