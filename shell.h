@@ -3,6 +3,19 @@
 
 extern char **environ;
 
+
+/**
+ * struct dog - pathnode structure
+ * @pathvalue: holds a path value
+ * @nextpath: points to the next path in the list
+ */
+
+typedef struct pathnode
+{
+	char *pathvalue;
+	struct pathnode *nextpath;
+} pathnode_t;
+
 /* Helper functions */
 void printenv(void);
 void displayprompt(void)
@@ -14,7 +27,6 @@ int setenvvar(char **tokens);
 int unsetenvvar(char **tokens);
 int isenvcommand(char *cmd);
 void handleenvcommand(char **tokens);
-
 
 
 /* Checks whether a given character is a delimiter or not */
