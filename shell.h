@@ -3,6 +3,10 @@
 
 extern char **environ;
 
+/* Helper functions */
+void printenv(void);
+void displayprompt(void)
+
 /* Functions for managing envirnment variables */
 
 char *getenvvar(char *name);
