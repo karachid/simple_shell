@@ -55,7 +55,7 @@ int isenvcommand(char *cmd)
 void handleenvcommand(char **tokens)
 {
 	if (strcmp(tokens[0], "env") == 0 && tokens[1] == NULL)
-		print_env();
+		printenv();
 	else if (strcmp(tokens[0], "setenv") == 0 && tokens[1] && tokens[2])
 		setenvvar(tokens);
 	else if (strcmp(tokens[0], "unsetenv") == 0 && tokens[1])
