@@ -1,6 +1,10 @@
 #include "shell.h"
 
-
+/**
+ * getenvvar - Retrives the value of an env var given as input
+ * @name: Name of the variable
+ * Return: (char *) which represents the value, NULL otherwise
+ */
 char *getenvvar(char *name)
 {
 	int i = 0;
@@ -19,26 +23,43 @@ char *getenvvar(char *name)
 	return (NULL);
 }
 
+
+/**
+ * setenvvar - Sets the value of an env variable
+ * @tokens: Arrays of string that holds the entire command
+ * Return: (int) 0 if SUCCESS, -1 otherwise
+ */
 int setenvvar(char **tokens)
 {
 	if (setenv(tokens[1], tokens[2], 1) != 0)
 	{
-		perror("setenv");
+		perror("Unable to set the env variable");
 		return (-1);
 	}
 	return (0);
 }
 
+
+/**
+ * unsetenvvar - Unsets the value of an env variable
+ * @tokens: Arrays of string that holds the entire command
+ * Return: (int) 0 if SUCCESS, -1 otherwise
+ */
 int unsetenvvar(char **tokens)
 {
 	if (unsetenv(tokens[1]) != 0)
 	{
 		perror("setenv");
-		exit(EXIT_FAILURE);
+		exit(-1);
 	}
 	return (0);
 }
 
+/**
+ * isenvcommand - Checks whether a command in anv command
+ * @cmd: Command input
+ * Return: (int) 1 if SUCCESS, 0 otherwise
+ */
 int isenvcommand(char *cmd)
 {
 	char *choice[] = {"setenv", "unsetenv", "env", NULL};
@@ -52,6 +73,11 @@ int isenvcommand(char *cmd)
 	return (0);
 }
 
+/**
+ * handleenvcommand - Handles the env command
+ * @tokens: Arrays of string that holds the entire command
+ * Return: (void) NOTHING
+ */
 void handleenvcommand(char **tokens)
 {
 	if (strcmp(tokens[0], "env") == 0 && tokens[1] == NULL)

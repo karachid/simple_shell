@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/**
+ * freelist - Frees the allocated memory for the paths list
+ * @head: Head of the paths list
+ * Return: (void) NOTHING
+ */
 void freelist(pathnode_t *head)
 {
 	pathnode_t *node, *next_node;
@@ -16,6 +21,11 @@ void freelist(pathnode_t *head)
 	}
 }
 
+/**
+ * freearray - Frees the allocated memory of the array command
+ * @tokens: Array of the command
+ * Return: (void) NOTHING
+ */
 void freearray(char **tokens)
 {
 	int i;
@@ -26,6 +36,13 @@ void freearray(char **tokens)
 	free(tokens);
 }
 
+/**
+ * freeothers - Frees any other memory at the end of the prog
+ * @tokens: Array of string for the entered command
+ * @flag: Flag that helps freeing memory
+ * @pathname: Absolute pathname of the command
+ * Return: (void) NOTHING
+ */
 void freeothers(char **tokens, int flag, char *pathname)
 {
 	if (flag)

@@ -18,8 +18,8 @@ int main(int ac, char **av)
 	(void)ac;
 
 	value = _getenv("PATH");
-	head = creat_list(head, value);
-	while (1)
+	head = createlist(head, value);
+	while (TRUE)
 	{
 		flag = 0;
 		displayprompt();

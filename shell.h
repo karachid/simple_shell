@@ -1,11 +1,13 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+#define TRUE 1
+
 extern char **environ;
 
 
 /**
- * struct dog - pathnode structure
+ * struct pathnode - pathnode structure
  * @pathvalue: holds a path value
  * @nextpath: points to the next path in the list
  */
@@ -16,12 +18,30 @@ typedef struct pathnode
 	struct pathnode *nextpath;
 } pathnode_t;
 
+
+/* Pathlist functions */
+pathnode_t *addpathattheend(pathnode_t **head, const char *pathvalue);
+pathnode_t *createlist(pathnode_t *head, char *value);
+
 /* Helper functions */
 void printenv(void);
-void displayprompt(void)
+void displayprompt(void);
+
+/* Exit handler functions */
+void handleexitcommand(char **tokens, pathnode_t *head);
+
+/* Execute functions */
+void executecommand(char *pathname, char **tokens, char *progname);
+
+/* Memory management functions */
+void freelist(pathnode_t *head);
+void freearray(char **tokens);
+void freeothers(char **tokens, int flag, char *pathname);
+
+/* Pathname management functions */
+char *getpathname(char *cmd, pathnode_t *head, int *flag);
 
 /* Functions for managing envirnment variables */
-
 char *getenvvar(char *name);
 int setenvvar(char **tokens);
 int unsetenvvar(char **tokens);

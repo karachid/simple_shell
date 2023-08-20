@@ -1,6 +1,13 @@
 #include "shell.h"
 
-char *getpathname(char *cmd, pathnode_t *current, int *flag)
+/**
+ * getpathname - Gets the absolute pathname of a command
+ * @cmd: Command given as input
+ * @head: Head oof the paths list
+ * @flag: Helper to know if a memory has been allocated
+ * Return: (char *) Absolute pathname if found, NULL otherwise
+ */
+char *getpathname(char *cmd, pathnode_t *head, int *flag)
 {
 	char *path;
 	struct stat st;
@@ -9,16 +16,16 @@ char *getpathname(char *cmd, pathnode_t *current, int *flag)
 	if (stat(cmd, &st) == 0)
 		return (cmd);
 
-	while (current)
+	while (head)
 	{
-		len = strlen(current->pathvalue) + strlen(cmd) + 2;
+		len = strlen(head->pathvalue) + strlen(cmd) + 2;
 		path = malloc(sizeof(char) * len);
 		if (!path)
 		{
 			free(path);
 			return (NULL);
 		}
-		strcpy(path, current->pathvalue);
+		strcpy(path, head->pathvalue);
 		strcat(path, "/");
 		strcat(path, cmd);
 		path[len - 1] = '\0';
@@ -27,7 +34,7 @@ char *getpathname(char *cmd, pathnode_t *current, int *flag)
 			*flag = 1;
 			return (path);
 		}
-		current = current->nextpath;
+		head = head->nextpath;
 		free(path);
 		path = NULL;
 	}

@@ -2,7 +2,6 @@
 
 /**
  * printenv - Prints the anv variable
- * 
  * Return: void (NOTHING)
  */
 void printenv(void)
@@ -16,7 +15,6 @@ void printenv(void)
 
 /**
  * displayprompt - Displays the shell's prompt
- *
  * Return: void (NOTHING)
  */
 void displayprompt(void)

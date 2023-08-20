@@ -1,5 +1,11 @@
 #include "shell.h"
 
+/**
+ * handleexitcommand - Handles the exit command
+ * @tokens: Arrays of the entire command
+ * @head: Head of the paths list
+ * Return: (void) NOTHING
+ */
 void handleexitcommand(char **tokens, pathnode_t *head)
 {
 	int num = 0;
