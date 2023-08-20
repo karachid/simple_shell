@@ -1,34 +1,27 @@
 #include "shell.h"
 
 
-
-char *getenvvar(char *var)
+char *getenvvar(char *name)
 {
-	unsigned int i = 0;
-	char *token;
+	int i = 0;
+	char *envvar;
+	size_t namesize;
 
-	while (environ[i])
+	if (name == NULL || name[0] == '\0')
+		return (NULL);
+	for (i = 0; environ[i]; i++)
 	{
-		token = strtok(environ[i], "=");
-		if (strcmp(token, var) == 0)
-		{
-			token = strtok(NULL, "=");
-			return (token);
-		}
-		i++;
+		envvar = environ[i];
+		namesize = strlen(name);
+		if (strncmp(envvar, name, namesize) == 0 && envvar[namesize] == '=')
+			return (envvar + namesize + 1);
 	}
 	return (NULL);
 }
 
-int setenvvar(char *r)
+int setenvvar(char **tokens)
 {
-	char *variable, *value, *token;
-
-	token = stringtoken(r, " ");
-	variable = token;
-	token = stringtoken(NULL, " ");
-	value = token;
-	if (setenv(variable, value, 1) != 0)
+	if (setenv(tokens[1], tokens[2], 1) != 0)
 	{
 		perror("setenv");
 		return (-1);
@@ -36,19 +29,9 @@ int setenvvar(char *r)
 	return (0);
 }
 
-int unsetenvvar(char *r)
+int unsetenvvar(char **tokens)
 {
-	char *var, *token, *res;
-
-	token = stringtoken(r, " ");
-	var = token;
-	token = stringtoken(NULL, " ");
-	if (token)
-	{
-		perror("syntax error");
-		return (-1);
-	}
-	if (unsetenv(var) != 0)
+	if (unsetenv(tokens[1]) != 0)
 	{
 		perror("setenv");
 		exit(EXIT_FAILURE);
@@ -69,13 +52,12 @@ int isenvcommand(char *cmd)
 	return (0);
 }
 
-void handleenvcommand(char *token)
+void handleenvcommand(char **tokens)
 {
-	if (strncmp(token, "env", 3) == 0)
+	if (strcmp(tokens[0], "env") == 0 && tokens[1] == NULL)
 		print_env();
-	else if (strncmp(token, "setenv", 6) == 0 && token[6] == ' ')
-		_setenv(&token[7]);
-	else if (strncmp(token, "unsetenv", 8) == 0 && token[8] == ' ')
-		_unsetenv(&token[9]);
-
+	else if (strcmp(tokens[0], "setenv") == 0 && tokens[1] && tokens[2])
+		_setenv(tokens);
+	else if (strcmp(tokens[0], "unsetenv") == 0 && tokens[1])
+		_unsetenv(tokens);
 }
