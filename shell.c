@@ -32,7 +32,7 @@ int main(int ac, char **av)
 			r = NULL;
 			if (isenvcommand(tokens[0]))
 			{
-				handleenvcommand(tokens[0]);
+				handleenvcommand(tokens);
 				continue;
 			}
 			if (strcmp(tokens[0], "exit") == 0)

@@ -1,7 +1,12 @@
 #include "shell.h"
 
 
-
+/**
+ * getenvvar - Gets the value of an env given as input
+ * @var: variable name for which the value gets retrieved
+ * 
+ * Return: (char *) value of the var, NULL otherwise
+ */
 char *getenvvar(char *var)
 {
 	unsigned int i = 0;
@@ -20,6 +25,11 @@ char *getenvvar(char *var)
 	return (NULL);
 }
 
+/*
+ * setenvvar - Sets an env variable
+ * @
+ *
+ */
 int setenvvar(char *r)
 {
 	char *variable, *value, *token;
@@ -74,8 +84,8 @@ void handleenvcommand(char *token)
 	if (strncmp(token, "env", 3) == 0)
 		print_env();
 	else if (strncmp(token, "setenv", 6) == 0 && token[6] == ' ')
-		_setenv(&token[7]);
+		setenvvar(&token[7]);
 	else if (strncmp(token, "unsetenv", 8) == 0 && token[8] == ' ')
-		_unsetenv(&token[9]);
+		unsetenvvar(&token[9]);
 
 }
