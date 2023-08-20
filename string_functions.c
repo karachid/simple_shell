@@ -79,7 +79,7 @@ int strcompare(char *strf, char *strs, int n)
 	}
 	else
 	{
-		for (i = 0; i < number ; i++)
+		for (i = 0; i < n ; i++)
 		{
 			if (strf[i] != strs[i])
 			return (0);

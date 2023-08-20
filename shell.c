@@ -17,7 +17,7 @@ int main(int ac, char **av)
 	pathnode_t *head = NULL;
 	(void)ac;
 
-	value = _getenv("PATH");
+	value = getenvvar("PATH");
 	head = createlist(head, value);
 	while (TRUE)
 	{

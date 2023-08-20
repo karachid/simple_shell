@@ -53,7 +53,7 @@ char **stringtotokens(char *str, char *delim)
 	if (str[j] == '\0')
 	{
 		words = realloc(words, sizeof(char *) * c);
-		words[c - 1] = malloc(sizeof(char) * (j - i + 1))
+		words[c - 1] = malloc(sizeof(char) * (j - i + 1));
 		if (!words[c - 1])
 		{
 			perror("Unable to allocate memory");

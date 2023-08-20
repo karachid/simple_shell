@@ -1,6 +1,15 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+#include <stddef.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
+#include <stdio.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
 #define TRUE 1
 
 extern char **environ;

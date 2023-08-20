@@ -6,6 +6,8 @@
  */
 void printenv(void)
 {
+	int i;
+
 	for (i = 0; environ[i]; i++)
 	{
 		write(1, environ[i], strlen(environ[i]));
