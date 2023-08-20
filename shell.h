@@ -3,6 +3,16 @@
 
 extern char **environ;
 
+/* Functions for managing envirnment variables */
+
+char *getenvvar(char *name);
+int setenvvar(char **tokens);
+int unsetenvvar(char **tokens);
+int isenvcommand(char *cmd);
+void handleenvcommand(char **tokens);
+
+
+
 /* Checks whether a given character is a delimiter or not */
 int isDelimiter(char c, char *delim);
 
