@@ -75,7 +75,7 @@ int setenvvar(char *name, char *value, int overwrite)
 
 	snprintf(newvar, size, "%s=%s", name, value);
 
-        if (putenv(newvar) != 0)
+	if (putenv(newvar) != 0)
 	{
 		free(newvar);
 		return (-1);
@@ -119,7 +119,8 @@ int putenvvar(char *name, char *value)
 		newenviron[j] = environ[j];
 		j++;
 	}
-	newenviron[i] = malloc(sizeof(char) * (strlength(name) + strlength(value) + 2));
+	newenviron[i] = malloc(sizeof(char) * (strlength(name)
+			+ strlength(value) + 2));
 	newenviron[i] = strconcatenate(newenviron[i], name);
 	newenviron[i] = strconcatenate(newenviron[i], "=");
 	newenviron[i] = strconcatenate(newenviron[i], value);
