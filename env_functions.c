@@ -13,32 +13,120 @@ char *getenvvar(char *name)
 
 	if (name == NULL || name[0] == '\0')
 		return (NULL);
+
+	namesize = strlength(name);
+
 	for (i = 0; environ[i]; i++)
 	{
 		envvar = environ[i];
-		namesize = strlen(name);
-		if (strncmp(envvar, name, namesize) == 0 && envvar[namesize] == '=')
+		if (strcompare(envvar, name, namesize) && envvar[namesize] == '=')
 			return (envvar + namesize + 1);
 	}
 	return (NULL);
 }
 
-
 /**
- * setenvvar - Sets the value of an env variable
- * @tokens: Arrays of string that holds the entire command
- * Return: (int) 0 if SUCCESS, -1 otherwise
+ * containschar - checks whether a string contains a char or not
+ * @str: string input
+ * @c: character to look for in the string input
+ * Return: int
  */
-int setenvvar(char **tokens)
+
+int containschar(char *str, char c)
 {
-	if (setenv(tokens[1], tokens[2], 1) != 0)
+	int i = 0;
+
+	for (; str[i] != '\0'; i++)
 	{
-		perror("Unable to set the env variable");
-		return (-1);
+		if (str[i] == c)
+			return (1);
 	}
 	return (0);
 }
 
+/**
+ * setenvvar - Sets the value of an env variable
+ * @name: name of the variable
+ * @value: value to be set
+ * @overwrite: allows to know whether to overwite the value or not
+ * Return: (int) 0 if SUCCESS, -1 otherwise
+ */
+int setenvvar(char *name, char *value, int overwrite)
+{
+	size_t size;
+	char *newvar;
+
+	if (name == NULL || name[0] == '\0' || containschar(name, '='))
+		return (-1);
+
+	if (!overwrite)
+	{
+		if (getenv(name) != NULL)
+			return (0);
+	}
+
+	size = strlength(name) + strlength(value) + 2;
+	newvar = (char *) malloc(size);
+
+	if (newvar == NULL)
+	{
+		return (-1);
+	}
+
+	snprintf(newvar, size, "%s=%s", name, value);
+
+        if (putenv(newvar) != 0)
+	{
+		free(newvar);
+		return (-1);
+	}
+	free(newvar);
+	return (0);
+}
+
+/**
+ * putenvvar - puts a new env variable
+ * @name: name of the variable
+ * @value: value to be set
+ * Return: int
+ */
+int putenvvar(char *name, char *value)
+{
+	int i = 0, j = 0;
+	char *s, **newenviron = NULL;
+
+	printf("%s | %s\n", name, value);
+
+	for (; environ[i]; i++)
+	{
+		if (strcompare(name, environ[i], strlength(name))
+		    && environ[i][strlength(name)] == '=')
+		{
+			s = malloc(sizeof(char) * (strlength(name) + strlength(value) + 2));
+			s = strconcatenate(s, name);
+			s = strconcatenate(s, "=");
+			s = strconcatenate(s, value);
+			environ[i] = s;
+			return (0);
+		}
+	}
+
+	newenviron = (char **) realloc(newenviron, sizeof(char *) * (i + 1));
+	if (newenviron == NULL)
+		printf("its NULL\n");
+	while (environ[j])
+	{
+		newenviron[j] = environ[j];
+		j++;
+	}
+	newenviron[i] = malloc(sizeof(char) * (strlength(name) + strlength(value) + 2));
+	newenviron[i] = strconcatenate(newenviron[i], name);
+	newenviron[i] = strconcatenate(newenviron[i], "=");
+	newenviron[i] = strconcatenate(newenviron[i], value);
+	newenviron[i + 1] = NULL;
+	environ = newenviron;
+	return (0);
+}
 
 /**
  * unsetenvvar - Unsets the value of an env variable
@@ -52,38 +140,11 @@ int unsetenvvar(char **tokens)
 		perror("setenv");
 		exit(-1);
 	}
+
+	if (getenv(tokens[1]))
+		printf("%s\n", getenv(tokens[1]));
+	else
+		printf("%s\n", "(NIL)");
+
 	return (0);
-}
-
-/**
- * isenvcommand - Checks whether a command in anv command
- * @cmd: Command input
- * Return: (int) 1 if SUCCESS, 0 otherwise
- */
-int isenvcommand(char *cmd)
-{
-	char *choice[] = {"setenv", "unsetenv", "env", NULL};
-	int i;
-
-	for (i = 0; choice[i]; i++)
-	{
-		if (strcmp(cmd, choice[i]) == 0)
-			return (1);
-	}
-	return (0);
-}
-
-/**
- * handleenvcommand - Handles the env command
- * @tokens: Arrays of string that holds the entire command
- * Return: (void) NOTHING
- */
-void handleenvcommand(char **tokens)
-{
-	if (strcmp(tokens[0], "env") == 0 && tokens[1] == NULL)
-		printenv();
-	else if (strcmp(tokens[0], "setenv") == 0 && tokens[1] && tokens[2])
-		setenvvar(tokens);
-	else if (strcmp(tokens[0], "unsetenv") == 0 && tokens[1])
-		unsetenvvar(tokens);
 }

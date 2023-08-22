@@ -82,76 +82,54 @@ int strcompare(char *strf, char *strs, int n)
 		for (i = 0; i < n ; i++)
 		{
 			if (strf[i] != strs[i])
-			return (0);
+				return (0);
 		}
 		return (1);
 	}
 }
 
 /**
- * strconcatenate - concatenates two given strings
- * @strf: first input string
- * @strs: seconf input string
- * Return: (char*) pointer to the new string
+ * strconcatenate - concatenates two strings
+ * @dest: first argument
+ * @src: second argument
+ * Return: concatenated string
  */
-char *strconcatenate(char *strf, char *strs)
+
+char *strconcatenate(char *dest, char *src)
 {
-	char *newstr = NULL;
-	int lenf = 0, lens = 0;
+	int i = 0, j = 0;
 
-	if (strf == NULL)
-		strf = "";
-	lenf = strlength(strf);
-
-	if (strs == NULL)
-		strs = "";
-	lens = strlength(strs);
-
-	newstr = malloc(sizeof(char) * (lenf + lens + 1));
-	if (!newstr)
+	while (dest[i] != '\0')
 	{
-		perror("Unable to allocate memory");
-		return (NULL);
+		i++;
 	}
 
-	for (lenf = 0; strf[lenf] != '\0'; lenf++)
-		newstr[lenf] = strf[lenf];
-	free(strf);
-
-	for (lens = 0; strs[lens] != '\0'; lens++)
+	while (src[j] != '\0')
 	{
-		newstr[lenf] = strs[lens];
-		lenf++;
+		dest[i] = src[j];
+		i++;
+		j++;
 	}
-
-	newstr[lenf] = '\0';
-	return (newstr);
+	dest[i] = '\0';
+	return (dest);
 }
 
 /**
- * stringncopy - copies n char from src to dest
- * @dest : destination string
- * @src : source string
- * @n : amount of char to be copied
- * Return: (char *) pointer to the new string
+ * strcopy - copies src into dest
+ * @dest: destination string
+ * @src: source string
+ * Return: array of char
  */
-
-char *stringncopy(char *dest, const char *src, size_t n)
+char *strcopy(char *dest, char *src)
 {
+	int i;
 
-	char *dests = dest;
-
-	while (n > 0 && *src != '\0')
+	i = 0;
+	while (src[i] != '\0')
 	{
-		*dest++ = *src++;
-		n--;
+		dest[i] = src[i];
+		i++;
 	}
-
-	while (n > 0)
-	{
-		*dest++ = '\0';
-		n--;
-	}
-
-	return (dests);
+	dest[i] = '\0';
+	return (dest);
 }

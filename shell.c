@@ -7,23 +7,23 @@
  * @av: Array of arguments
  * Return: Always 0 (SUCCESS)
  */
-
 int main(int ac, char **av)
 {
-	char *pathname, *value, *r = NULL, **tokens;
-	ssize_t n_char;
+	char *pathname, *value = getenvvar("PATH"), *r = NULL, **tokens;
+	ssize_t n_char = 0;
 	size_t len = 0;
 	int flag;
 	pathnode_t *head = NULL;
 	(void)ac;
 
-	value = getenvvar("PATH");
 	head = createlist(head, value);
 	while (TRUE)
 	{
 		flag = 0;
 		displayprompt();
 		n_char = getline(&r, &len, stdin);
+		if (n_char == 1 && r[0] == '\n')
+			continue;
 		if (n_char >= 0)
 		{
 			r[n_char - 1] = '\0';
@@ -35,11 +35,11 @@ int main(int ac, char **av)
 				handleenvcommand(tokens);
 				continue;
 			}
-			if (strcmp(tokens[0], "exit") == 0)
+			if (strcompare(tokens[0], "exit", 4))
 				handleexitcommand(tokens, head);
 			pathname = getpathname(tokens[0], head, &flag);
 			if (!pathname)
-				printf("--command not found\n");
+				write(1, "Command not found\n", 18);
 			else
 				executecommand(pathname, tokens, av[0]);
 			freeothers(tokens, flag, pathname);

@@ -9,7 +9,7 @@
  */
 char *getpathname(char *cmd, pathnode_t *head, int *flag)
 {
-	char *path;
+	char *path = NULL;
 	struct stat st;
 	unsigned int len;
 
@@ -18,17 +18,17 @@ char *getpathname(char *cmd, pathnode_t *head, int *flag)
 
 	while (head)
 	{
-		len = strlen(head->pathvalue) + strlen(cmd) + 2;
+		len = strlength(head->pathvalue) + strlength(cmd) + 2;
 		path = malloc(sizeof(char) * len);
 		if (!path)
 		{
 			free(path);
 			return (NULL);
 		}
-		strcpy(path, head->pathvalue);
-		strcat(path, "/");
-		strcat(path, cmd);
-		path[len - 1] = '\0';
+		strcopy(path, head->pathvalue);
+		path = strconcatenate(path, "/");
+		path = strconcatenate(path, cmd);
+
 		if (stat(path, &st) == 0)
 		{
 			*flag = 1;

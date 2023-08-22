@@ -7,14 +7,14 @@
  * @pathvalue: Value of the new path to add to the paths list
  * Return: (pathnode_t) Address of the new allocated path node
  */
-pathnode_t *addpathattheend(pathnode_t **head, const char *pathvalue)
+pathnode_t *addpathattheend(pathnode_t **head, char *pathvalue)
 {
 	pathnode_t *current, *tmp;
 
 	current = malloc(sizeof(pathnode_t));
 	if (!current)
 		return (NULL);
-	current->pathvalue = strdup(pathvalue);
+	current->pathvalue = strduplicate(pathvalue);
 	current->nextpath = NULL;
 	if (!*head)
 		*head = current;

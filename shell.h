@@ -4,7 +4,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stddef.h>
-#include <string.h>
 #include <stdio.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -29,12 +28,13 @@ typedef struct pathnode
 
 
 /* Pathlist functions */
-pathnode_t *addpathattheend(pathnode_t **head, const char *pathvalue);
+pathnode_t *addpathattheend(pathnode_t **head, char *pathvalue);
 pathnode_t *createlist(pathnode_t *head, char *value);
 
 /* Helper functions */
 void printenv(void);
 void displayprompt(void);
+int _atoi(char *str);
 
 /* Exit handler functions */
 void handleexitcommand(char **tokens, pathnode_t *head);
@@ -46,17 +46,19 @@ void executecommand(char *pathname, char **tokens, char *progname);
 void freelist(pathnode_t *head);
 void freearray(char **tokens);
 void freeothers(char **tokens, int flag, char *pathname);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 /* Pathname management functions */
 char *getpathname(char *cmd, pathnode_t *head, int *flag);
 
 /* Functions for managing envirnment variables */
 char *getenvvar(char *name);
-int setenvvar(char **tokens);
+int setenvvar(char *name, char *value, int overwrite);
 int unsetenvvar(char **tokens);
 int isenvcommand(char *cmd);
 void handleenvcommand(char **tokens);
-
+int containschar(char *str, char c);
+int putenvvar(char *name, char *value);
 
 /* Checks whether a given character is a delimiter or not */
 int isDelimiter(char c, char *delim);
@@ -77,9 +79,12 @@ char *strduplicate(char *str);
 int strcompare(char *strf, char *strs, int n);
 
 /* Returns the concatenation of two strings given as inputs */
-char *str_concatenate(char *strf, char *strs);
+char *strconcatenate(char *strf, char *strs);
+
+/* Copies source to destination */
+char *strcopy(char *dest, char *src);
 
 /* Copies n characters from sources to destination */
-char *stringncopy(char *dest, const char *src, size_t n);
+char *stringncopy(char *dest, char *src, int n);
 
 #endif
