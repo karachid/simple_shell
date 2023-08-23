@@ -13,7 +13,6 @@
 
 extern char **environ;
 
-
 /**
  * struct pathnode - pathnode structure
  * @pathvalue: holds a path value
@@ -26,6 +25,8 @@ typedef struct pathnode
 	struct pathnode *nextpath;
 } pathnode_t;
 
+/* Main function */
+void shell_loop(pathnode_t *head, int pflag, char *av);
 
 /* Pathlist functions */
 pathnode_t *addpathattheend(pathnode_t **head, char *pathvalue);

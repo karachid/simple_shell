@@ -5,6 +5,7 @@
  * @pathname: Absolute path of the command file
  * @tokens: Arrays that represents the entire command
  * @progname: Represents the shell's name
+ * @env: environment
  */
 void executecommand(char *pathname, char **tokens, char *progname)
 {

@@ -9,18 +9,39 @@
  */
 int main(int ac, char **av)
 {
-	char *pathname, *value = getenvvar("PATH"), *r = NULL, **tokens;
-	ssize_t n_char = 0;
-	size_t len = 0;
-	int flag;
+	char *value = getenvvar("PATH");
+	int pflag = 0;
 	pathnode_t *head = NULL;
 	(void)ac;
 
 	head = createlist(head, value);
+
+	if (isatty(STDIN_FILENO))
+		pflag = 1;
+
+	shell_loop(head, pflag, av[0]);
+
+	freelist(head);
+	return (0);
+}
+
+/**
+ * shell_loop - main llop of the shell
+ * @head: head of the path list
+ * @pflag: prompt flag
+ */
+void shell_loop(pathnode_t *head, int pflag, char *av)
+{
+	char *pathname, *r = NULL, **tokens;
+	ssize_t n_char = 0;
+	size_t len = 0;
+	int flag = 0;
+
 	while (TRUE)
 	{
 		flag = 0;
-		displayprompt();
+		if (pflag)
+			displayprompt();
 		n_char = getline(&r, &len, stdin);
 		if (n_char == 1 && r[0] == '\n')
 			continue;
@@ -39,14 +60,12 @@ int main(int ac, char **av)
 				handleexitcommand(tokens, head);
 			pathname = getpathname(tokens[0], head, &flag);
 			if (!pathname)
-				perror(av[0]);
+				perror(av);
 			else
-				executecommand(pathname, tokens, av[0]);
+				executecommand(pathname, tokens, av);
 			freeothers(tokens, flag, pathname);
 		}
 		else
 			break;
 	}
-	freelist(head);
-	return (0);
 }
