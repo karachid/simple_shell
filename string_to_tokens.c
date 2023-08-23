@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/**
+ * string_to_tokens - function that return an array of string
+ * @r: string to change to an array of string
+ * Return: array of string
+ */
 
 char **string_to_tokens(char *r)
 {
@@ -10,7 +15,7 @@ char **string_to_tokens(char *r)
 	while (token)
 	{
 		i++;
-		args = realloc(args, sizeof(char *) * i);
+		args = _realloc(args, sizeof(char *) * (i), sizeof(char *) * (i + 1));
 		if (!args)
 		{
 			perror("realloc");
