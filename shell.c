@@ -52,8 +52,7 @@ void shell_loop(pathnode_t *head, int pflag, char *av)
 			if (handle_white_space(&r))
 				continue;
 			tokens = string_to_tokens(r);
-			free(r);
-			r = NULL;
+			free(r), r = NULL;
 			if (isenvcommand(tokens[0]))
 			{
 				handleenvcommand(tokens);
@@ -69,6 +68,9 @@ void shell_loop(pathnode_t *head, int pflag, char *av)
 			freeothers(tokens, flag, pathname);
 		}
 		else
+		{
+			free(r);
 			break;
+		}
 	}
 }
