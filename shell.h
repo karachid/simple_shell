@@ -8,11 +8,11 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <string.h>
 
 #define TRUE 1
 
 /* new addition */
-#include <string.h>
 char **string_to_tokens(char *r);
 int handle_white_space(char **r);
 /*************/
