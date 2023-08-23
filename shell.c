@@ -39,7 +39,7 @@ int main(int ac, char **av)
 				handleexitcommand(tokens, head);
 			pathname = getpathname(tokens[0], head, &flag);
 			if (!pathname)
-				write(1, "Command not found\n", 18);
+				perror(av[0]);
 			else
 				executecommand(pathname, tokens, av[0]);
 			freeothers(tokens, flag, pathname);
