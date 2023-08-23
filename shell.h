@@ -12,14 +12,6 @@
 
 #define TRUE 1
 
-/* new addition */
-char **string_to_tokens(char *r);
-int handle_white_space(char **r);
-/*************/
-
-
-extern char **environ;
-
 /**
  * struct pathnode - pathnode structure
  * @pathvalue: holds a path value
@@ -31,6 +23,18 @@ typedef struct pathnode
 	char *pathvalue;
 	struct pathnode *nextpath;
 } pathnode_t;
+
+/* new addition */
+char **string_to_tokens(char *r);
+int handle_white_space(char **r);
+int handler(char **r, pathnode_t *head, int *flag, char *av, ssize_t n_char, int count);
+void printerr(char *prgm, char *cmd_C, char *cmd, char *err);
+char *number_to_string(int num);
+/*************/
+
+
+extern char **environ;
+
 
 /* Main function */
 void shell_loop(pathnode_t *head, int pflag, char *av);

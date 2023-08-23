@@ -26,17 +26,17 @@ int main(int ac, char **av)
 }
 
 /**
- * shell_loop - main llop of the shell
+ * shell_loop - main loop of the shell
  * @head: head of the path list
  * @pflag: prompt flag
  * @av: prog name
  */
 void shell_loop(pathnode_t *head, int pflag, char *av)
 {
-	char *pathname, *r = NULL, **tokens;
+	char *r = NULL;
 	ssize_t n_char = 0;
 	size_t len = 0;
-	int flag = 0;
+	int flag = 0, count = 0;
 
 	while (TRUE)
 	{
@@ -44,28 +44,13 @@ void shell_loop(pathnode_t *head, int pflag, char *av)
 		if (pflag)
 			displayprompt();
 		n_char = getline(&r, &len, stdin);
+		count++;
 		if (n_char == 1 && r[0] == '\n')
 			continue;
 		if (n_char >= 0)
 		{
-			r[n_char - 1] = '\0';
-			if (handle_white_space(&r))
+			if (handler(&r, head, &flag, av, n_char, count))
 				continue;
-			tokens = string_to_tokens(r);
-			free(r), r = NULL;
-			if (isenvcommand(tokens[0]))
-			{
-				handleenvcommand(tokens);
-				continue;
-			}
-			if (strcompare(tokens[0], "exit", 4))
-				handleexitcommand(tokens, head);
-			pathname = getpathname(tokens[0], head, &flag);
-			if (!pathname)
-				perror(av);
-			else
-				executecommand(pathname, tokens, av);
-			freeothers(tokens, flag, pathname);
 		}
 		else
 		{
