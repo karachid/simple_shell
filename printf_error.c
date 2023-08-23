@@ -11,7 +11,7 @@
 
 void printerr(char *progname, char *cmd_C, char *cmd, char *err)
 {
-	write(STDERR_FILENO, progname, strlength(prgm));
+	write(STDERR_FILENO, progname, strlength(progname));
 	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, cmd_C, strlength(cmd_C));
 	write(STDERR_FILENO, ": ", 2);
