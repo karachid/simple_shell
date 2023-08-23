@@ -11,6 +11,13 @@
 
 #define TRUE 1
 
+/* new addition */
+#include <string.h>
+char **string_to_tokens(char *r);
+int handle_white_space(char **r);
+/*************/
+
+
 extern char **environ;
 
 /**

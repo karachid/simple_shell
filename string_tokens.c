@@ -33,8 +33,7 @@ char **stringtotokens(char *str, char *delim)
 {
 	int j = 0, i = 0, c = 1, oldsize = 0;
 	char **words = NULL;
-	while (str[j]==' ')
-		str++;
+
 	for (j = 0; str[j] != '\0'; j++)
 	{
 		if (isDelimiter(str[j], delim))
@@ -44,9 +43,7 @@ char **stringtotokens(char *str, char *delim)
 			oldsize++;
 			words[c - 1] = malloc(sizeof(char) * (j - i + 1));
 			if (!words[c - 1])
-			{
 				perror("Unable to allocate memory");
-			}
 			stringncopy(words[c - 1], str + i, j - i);
 			words[c - 1][j - i] = '\0';
 			i = j + 1;
@@ -60,9 +57,7 @@ char **stringtotokens(char *str, char *delim)
 		oldsize++;
 		words[c - 1] = malloc(sizeof(char) * (j - i + 1));
 		if (!words[c - 1])
-		{
 			perror("Unable to allocate memory");
-		}
 		stringncopy(words[c - 1], str + i, j - i);
 		words[c - 1][j - i] = '\0';
 		c++;
@@ -71,7 +66,6 @@ char **stringtotokens(char *str, char *delim)
 	words = _realloc(words, sizeof(char *) * oldsize, sizeof(char *) * c);
 	oldsize++;
 	words[c - 1] = NULL;
-
 	return (words);
 }
 

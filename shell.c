@@ -49,7 +49,9 @@ void shell_loop(pathnode_t *head, int pflag, char *av)
 		if (n_char >= 0)
 		{
 			r[n_char - 1] = '\0';
-			tokens = stringtotokens(r, " ");
+			if (handle_white_space(&r))
+				continue;
+			tokens = string_to_tokens(r);
 			free(r);
 			r = NULL;
 			if (isenvcommand(tokens[0]))
