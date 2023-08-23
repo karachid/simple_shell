@@ -49,7 +49,7 @@ void shell_loop(pathnode_t *head, int pflag, char *av)
 			continue;
 		if (n_char >= 0)
 		{
-			if (handler(&r, head, &flag, av, n_char, count))
+			if (handler(&r, head, &flag, av, n_char, count, pflag))
 				continue;
 		}
 		else
