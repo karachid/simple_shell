@@ -33,8 +33,9 @@ char **stringtotokens(char *str, char *delim)
 {
 	int j = 0, i = 0, c = 1, oldsize = 0;
 	char **words = NULL;
-
-	for (; str[j] != '\0'; j++)
+	while (str[j]==' ')
+		str++;
+	for (j = 0; str[j] != '\0'; j++)
 	{
 		if (isDelimiter(str[j], delim))
 		{
@@ -70,6 +71,7 @@ char **stringtotokens(char *str, char *delim)
 	words = _realloc(words, sizeof(char *) * oldsize, sizeof(char *) * c);
 	oldsize++;
 	words[c - 1] = NULL;
+
 	return (words);
 }
 
