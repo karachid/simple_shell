@@ -29,6 +29,7 @@ int main(int ac, char **av)
  * shell_loop - main llop of the shell
  * @head: head of the path list
  * @pflag: prompt flag
+ * @av: prog name
  */
 void shell_loop(pathnode_t *head, int pflag, char *av)
 {
