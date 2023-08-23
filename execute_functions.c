@@ -13,7 +13,7 @@ void executecommand(char *pathname, char **tokens, char *progname)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(pathname, tokens, NULL) == -1)
+		if (execve(pathname, tokens, environ) == -1)
 		{
 			perror(progname);
 			exit(-1);
