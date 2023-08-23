@@ -36,7 +36,7 @@ void shell_loop(pathnode_t *head, int pflag, char *av)
 	char *pathname, *r = NULL, **tokens;
 	ssize_t n_char = 0;
 	size_t len = 0;
-	int flag = 0, i;
+	int flag = 0;
 
 	while (TRUE)
 	{
@@ -52,9 +52,6 @@ void shell_loop(pathnode_t *head, int pflag, char *av)
 			if (handle_white_space(&r))
 				continue;
 			tokens = string_to_tokens(r);
-			printf("r : %s -- len : %ld\n", r, strlen(r));
-			for (i = 0; tokens[i]; i++)
-				printf("r : %s -- len : %ld\n", tokens[i], strlen(tokens[i]));
 			free(r);
 			r = NULL;
 			if (isenvcommand(tokens[0]))
