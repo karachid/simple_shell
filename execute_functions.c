@@ -9,6 +9,7 @@
 void executecommand(char *pathname, char **tokens, char *progname)
 {
 	pid_t pid;
+	int status, exit_status;
 
 	pid = fork();
 	if (pid == 0)
@@ -16,9 +17,14 @@ void executecommand(char *pathname, char **tokens, char *progname)
 		if (execve(pathname, tokens, environ) == -1)
 		{
 			perror(progname);
-			exit(-1);
+			exit(2);
 		}
 	}
 	else
-		wait(NULL);
+	{
+		wait(&status);
+		if (WIFEXITED(status))
+			exit_status = WEXITSTATUS(status);
+		errno = exit_status;
+	}
 }

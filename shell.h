@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <errno.h>
 
 #define TRUE 1
 
@@ -27,7 +28,8 @@ typedef struct pathnode
 /* new addition */
 char **string_to_tokens(char *r);
 int handle_white_space(char **r);
-int handler(char **r, pathnode_t *head, int *flag, char *av, ssize_t n_char, int count);
+int handler(char **r, pathnode_t *head, int *flag,
+		char *av, ssize_t n_char, int count);
 void printerr(char *prgm, char *cmd_C, char *cmd, char *err);
 char *number_to_string(int num);
 /*************/
@@ -49,7 +51,7 @@ void displayprompt(void);
 int _atoi(char *str);
 
 /* Exit handler functions */
-void handleexitcommand(char **tokens, pathnode_t *head);
+void handleexitcommand(char **tokens, pathnode_t *head, int count);
 
 /* Execute functions */
 void executecommand(char *pathname, char **tokens, char *progname);

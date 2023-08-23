@@ -6,7 +6,7 @@
  * @head: Head of the paths list
  * Return: (void) NOTHING
  */
-void handleexitcommand(char **tokens, pathnode_t *head)
+void handleexitcommand(char **tokens, pathnode_t *head, int count)
 {
 	int num = 0;
 
@@ -14,5 +14,7 @@ void handleexitcommand(char **tokens, pathnode_t *head)
 		num = _atoi(tokens[1]);
 	freelist(head);
 	freearray(tokens);
-	exit(num);
+	if (tokens[1])
+		exit(num);
+	exit(count != 1 ? errno : 0);
 }

@@ -27,7 +27,7 @@ int handler(char **r, pathnode_t *head, int *flag,
 		return (1);
 	}
 	if (strcompare(tokens[0], "exit", 4))
-		handleexitcommand(tokens, head);
+		handleexitcommand(tokens, head, count);
 	pathname = getpathname(tokens[0], head, flag);
 	if (!pathname)
 	{
