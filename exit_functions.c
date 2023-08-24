@@ -13,9 +13,12 @@ void handleexitcommand(char **tokens, pathnode_t *head)
 	if (tokens[1])
 		num = _atoi(tokens[1]);
 	freelist(head);
-	freearray(tokens);
 	if (tokens[1])
+	{
+		freearray(tokens);
 		exit(num);
+	}
+	freearray(tokens);
 	if (errno == 127)
 		exit(errno);
 	exit(0);

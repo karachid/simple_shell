@@ -13,9 +13,10 @@ char *getpathname(char *cmd, pathnode_t *head, int *flag)
 	struct stat st;
 	unsigned int len;
 
+	if (!head && cmd[0] != '/')
+		return (NULL);
 	if (stat(cmd, &st) == 0)
 		return (cmd);
-
 	while (head)
 	{
 		len = strlength(head->pathvalue) + strlength(cmd) + 2;

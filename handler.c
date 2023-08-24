@@ -34,6 +34,7 @@ int handler(char **r, pathnode_t *head, int *flag,
 	{
 		cmd_c = number_to_string(count);
 		printerr(av, cmd_c, tokens[0], ": not found");
+		free(cmd_c);
 		errno = 127;
 		if (!pflag)
 		{
