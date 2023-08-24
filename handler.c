@@ -43,7 +43,7 @@ int handler(char **r, pathnode_t *head, int *flag,
 		}
 	}
 	else
-		executecommand(pathname, tokens, av, pflag);
+		executecommand(pathname, tokens, av);
 	freeothers(tokens, *flag, pathname);
 	return (0);
 }

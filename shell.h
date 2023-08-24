@@ -54,7 +54,7 @@ int _atoi(char *str);
 void handleexitcommand(char **tokens, pathnode_t *head);
 
 /* Execute functions */
-void executecommand(char *pathname, char **tokens, char *progname, int pflag);
+void executecommand(char *pathname, char **tokens, char *progname);
 
 /* Memory management functions */
 void freelist(pathnode_t *head);

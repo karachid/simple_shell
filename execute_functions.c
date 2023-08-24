@@ -5,9 +5,9 @@
  * @pathname: Absolute path of the command file
  * @tokens: Arrays that represents the entire command
  * @progname: Represents the shell's name
- * @pflag: flag
  */
-void executecommand(char *pathname, char **tokens, char *progname, int pflag)
+
+void executecommand(char *pathname, char **tokens, char *progname)
 {
 	pid_t pid;
 	int status, exit_status;
@@ -27,7 +27,7 @@ void executecommand(char *pathname, char **tokens, char *progname, int pflag)
 		if (WIFEXITED(status))
 			exit_status = WEXITSTATUS(status);
 		errno = exit_status;
-		if (!pflag)
-			exit(errno);
+		/*if (!pflag)
+			exit(errno);*/
 	}
 }
